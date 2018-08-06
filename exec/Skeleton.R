@@ -3,7 +3,7 @@
 # Description
 # Date
 
-assign_parameters <- function(){
+assign_parameters <- function() {
 
   a <- 1
   b <- 2
@@ -13,10 +13,10 @@ assign_parameters <- function(){
 
 }
 
-compute_inputs <- function(parameters){
+compute_inputs <- function(parameters) {
 
   with(parameters, {
-  
+
     c <- b + 1
 
     inputs <- as.list(sys.frame(sys.nframe()))
@@ -25,23 +25,23 @@ compute_inputs <- function(parameters){
   })
 }
 
-simulate <- function(x, inputs){
+simulate <- function(x, inputs) {
 
   with(inputs, {
-  
+
     y <- x + c * x + b * x * x + a * x * x * x
 
     results <- list(y = y)
-    return (results)
+    return(results)
 
   })
 
 }
 
-compute_outputs <- function(x, inputs, results){
+compute_outputs <- function(x, inputs, results) {
 
   with(results, {
-  
+
     z <- y + 1
 
     outputs <- list(x = x, y = y, z = z)
@@ -51,9 +51,9 @@ compute_outputs <- function(x, inputs, results){
 }
 
 # the executive function
-run_simulation <- function(parameters){
+run_simulation <- function(parameters) {
 
-  # get inputs based on latest parameter values
+  # get inputs based on supplied parameter values
   inputs <- compute_inputs(parameters)
 
   # compute the independent variable
@@ -61,15 +61,16 @@ run_simulation <- function(parameters){
 
   # run
   results <- simulate(x, inputs)
-  
+
   # compute and format output for use by R-Vis
   outputs <- compute_outputs(x, inputs, results)
   return(outputs)
 }
 
-# the parameters list
+# create the parameters list
 # R-Vis will edit a copy of this object and 
-# use the copy to invoke the executive 
+# invoke the executive with the copy as the
+# argument
 parameters <- assign_parameters()
 
 # R-Vis will invoke the executive like this
